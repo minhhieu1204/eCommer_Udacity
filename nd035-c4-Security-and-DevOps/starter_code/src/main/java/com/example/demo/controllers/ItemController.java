@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entities.Item;
-import com.example.demo.repositories.ItemRepository;
+import com.example.demo.model.entities.Item;
 
 @RestController
 @RequestMapping(value = "/api/item", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,17 +21,17 @@ public class ItemController {
 	private ItemService itemService;
 	
 	@GetMapping
-	public ResponseEntity<List<Item>> getItems() {
+	public ResponseEntity getItems() {
 		return itemService.getItems();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Item> getItemById(@PathVariable Long id) {
+	public ResponseEntity getItemById(@PathVariable Long id) {
 		return itemService.getItemById(id);
 	}
 	
 	@GetMapping("/name/{name}")
-	public ResponseEntity<List<Item>> getItemsByName(@PathVariable String name) {
+	public ResponseEntity getItemsByName(@PathVariable String name) {
 		return itemService.getItemsByName(name);
 	}
 	

@@ -1,20 +1,18 @@
 package com.example.demo.services.impl;
 
-import com.example.demo.dtos.ItemDto;
-import com.example.demo.entities.Item;
+import com.example.demo.model.entities.Item;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repositories.ItemRepository;
 import com.example.demo.services.ItemService;
 import com.example.demo.utils.CommonUtil;
 import com.example.demo.utils.JSONUtil;
-import com.example.demo.utils.MapperUtil;
+import com.example.demo.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,9 +22,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
-
-    @Autowired
-    private MapperUtil mapperUtil;
 
     @Override
     public ResponseEntity getItems() {
@@ -38,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
             return JSONUtil.buildError(e.getMessage());
         }
         logger.info("get items success.");
-        return ResponseEntity.ok().body(mapperUtil.mapToList(items, ItemDto.class));
+        return ResponseEntity.ok().body(items);
     }
 
     @Override
@@ -47,14 +42,14 @@ public class ItemServiceImpl implements ItemService {
         try {
             item = itemRepository.findById(itemId).orElse(null);
             if (CommonUtil.isEmpty(item)) {
-                throw new ResourceNotFoundException("Item not exist.");
+                throw new ResourceNotFoundException(Message.item_not_exist);
             }
         } catch (Exception e) {
             logger.error("get item by id={} fail." + e.getMessage(), itemId);
             return JSONUtil.buildError(e.getMessage());
         }
         logger.info("get items by id={} success.", itemId);
-        return ResponseEntity.ok().body(mapperUtil.map(item, ItemDto.class));
+        return ResponseEntity.ok().body(item);
     }
 
     @Override
@@ -69,6 +64,6 @@ public class ItemServiceImpl implements ItemService {
         }
         logger.info("get items by name={} success.", itemName);
         return items.size() == 0 ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok().body(mapperUtil.mapToList(items, ItemDto.class));
+                : ResponseEntity.ok().body(items);
     }
 }

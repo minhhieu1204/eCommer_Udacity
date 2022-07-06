@@ -2,8 +2,8 @@ package com.example.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entities.Cart;
-import com.example.demo.entities.User;
+import com.example.demo.model.entities.Cart;
+import com.example.demo.model.entities.User;
 
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.CartRequest;
-import com.example.demo.dtos.CreateUserRequest;
+import com.example.demo.model.dtos.CartRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface CartService {

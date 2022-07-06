@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.CreateUserRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface OrderService {

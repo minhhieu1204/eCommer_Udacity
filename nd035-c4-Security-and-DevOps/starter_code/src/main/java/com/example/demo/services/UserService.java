@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.CreateUserRequest;
-import com.example.demo.dtos.UserDto;
+import com.example.demo.model.dtos.CreateUserRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {

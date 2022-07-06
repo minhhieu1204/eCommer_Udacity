@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entities.User;
-import com.example.demo.entities.UserOrder;
+import com.example.demo.model.entities.User;
+import com.example.demo.model.entities.UserOrder;
 import org.springframework.stereotype.Repository;
 
 @Repository

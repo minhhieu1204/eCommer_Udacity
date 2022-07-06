@@ -1,11 +1,9 @@
 package com.example.demo.config.security;
 
 import com.auth0.jwt.JWT;
-import com.example.demo.entities.User;
+import com.example.demo.model.entities.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +20,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 

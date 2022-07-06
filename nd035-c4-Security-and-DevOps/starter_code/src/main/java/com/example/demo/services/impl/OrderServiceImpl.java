@@ -1,14 +1,13 @@
 package com.example.demo.services.impl;
 
-import com.example.demo.dtos.OrderDto;
-import com.example.demo.entities.User;
-import com.example.demo.entities.UserOrder;
+import com.example.demo.model.entities.User;
+import com.example.demo.model.entities.UserOrder;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.OrderService;
 import com.example.demo.utils.JSONUtil;
-import com.example.demo.utils.MapperUtil;
+import com.example.demo.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +25,17 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
-    private MapperUtil mapperUtil;
-
     @Override
     public ResponseEntity submit(String username) {
         try{
             User user = userRepository.findByUsername(username);
             if(user == null) {
-               throw new ResourceNotFoundException("Username not found.");
+               throw new ResourceNotFoundException(Message.username_not_exist);
             }
             UserOrder order = UserOrder.createFromCart(user.getCart());
             order = orderRepository.save(order);
             logger.info("order of username={} success.", username);
-            return ResponseEntity.ok().body(mapperUtil.map(order, OrderDto.class));
+            return ResponseEntity.ok().body(order);
 
         } catch (Exception e){
             logger.error("order of username={} fail." + e.getMessage(), username);
@@ -52,10 +48,10 @@ public class OrderServiceImpl implements OrderService {
         try{
             User user = userRepository.findByUsername(username);
             if(user == null) {
-                throw new ResourceNotFoundException("Username not found.");
+                throw new ResourceNotFoundException(Message.username_not_exist);
             }
             logger.info("get orders of username={} success.", username);
-            return ResponseEntity.ok().body(mapperUtil.mapToList(orderRepository.findByUser(user), OrderDto.class));
+            return ResponseEntity.ok().body(orderRepository.findByUser(user));
 
         } catch (Exception e){
             logger.error("get orders of username={} fail." + e.getMessage(), username);

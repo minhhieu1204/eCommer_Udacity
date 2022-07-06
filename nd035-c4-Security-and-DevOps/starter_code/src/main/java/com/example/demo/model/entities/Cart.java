@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.model.entities;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,22 +18,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "cart")
 public class Cart {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty
 	@Column
 	private Long id;
-	
+
 	@ManyToMany
+	@JsonProperty
 	@Column
-    private List<Item> items;
-	
+	private List<Item> items;
+
 	@OneToOne(mappedBy = "cart")
-    private User user;
-	
+	@JsonProperty
+	private User user;
+
 	@Column
+	@JsonProperty
 	private BigDecimal total;
-	
+
 	public BigDecimal getTotal() {
 		return total;
 	}
@@ -65,7 +69,7 @@ public class Cart {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-	
+
 	public void addItem(Item item) {
 		if(items == null) {
 			items = new ArrayList<>();
@@ -76,7 +80,7 @@ public class Cart {
 		}
 		total = total.add(item.getPrice());
 	}
-	
+
 	public void removeItem(Item item) {
 		if(items == null) {
 			items = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.model.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,18 +20,22 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty
 	private long id;
-	
+
 	@Column(nullable = false, unique = true)
+	@JsonProperty
 	private String username;
 
-	@Column
-	private String password;
-	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id", referencedColumnName = "id")
-    private Cart cart;
-	
+	@JoinColumn(name = "cart_id", referencedColumnName = "id")
+	@JsonIgnore
+	private Cart cart;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(nullable = false)
+	private String password;
+
 	public Cart getCart() {
 		return cart;
 	}

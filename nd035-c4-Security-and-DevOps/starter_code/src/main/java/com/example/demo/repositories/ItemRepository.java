@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entities.Item;
+import com.example.demo.model.entities.Item;
 import org.springframework.stereotype.Repository;
 
 @Repository
